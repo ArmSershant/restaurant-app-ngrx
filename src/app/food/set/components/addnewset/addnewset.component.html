@@ -1,0 +1,69 @@
+<div class="flex">
+  <div class="flex-row" *ngFor="let category of categories">
+    <label class="ml-2 text-sm font-medium text-gray-400">
+      {{ category }}</label
+    >
+    <input
+      class="w-4 h-4 mr-10 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+      type="radio"
+      name="category"
+      [value]="category"
+      [checked]="isSelected"
+      (change)="onCategoryChange(category)"
+    />
+  </div>
+</div>
+<div class="flex flex-row gap-2 mx-auto">
+  <form #s="ngForm" (ngSubmit)="onSave(s)">
+    <div>
+      <input
+        class="w-1/2 bg-pink-300 placeholder-white text-white rounded border-0 mx-auto"
+        placeholder="Set Name"
+        autofocus
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="set.name"
+        required
+      />
+      <div *ngIf="s.submitted && s.controls['name'].errors">
+        <div
+          class="bg-red-700 rounded mx-auto text-white"
+          *ngIf="s.controls['name'].errors['required']"
+        >
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div
+      *ngFor="
+        let food of foods$ | foodCategoryFilter : selectedCategory | async
+      "
+    >
+      <div class="shadow-sm bg-yellow-500 rounded mt-1 ml-1 px-3 py-3 mx-auto">
+        <h2>Food Name: {{ food.name }}</h2>
+        <h2>Food Price: ${{ food.price }}</h2>
+        <p>Food Description:{{ food.description }}</p>
+        <h2>Food Category: {{ food.category }}</h2>
+        <input
+          type="checkbox"
+          [checked]="food.ischecked"
+          name="selectedFood"
+          id="selectedFood"
+          (change)="onCheck(food.id)"
+          required
+        />
+      </div>
+    </div>
+    <div *ngIf="notEnoughChecked" class="bg-red-700 rounded mx-auto text-white">
+      Need to be checked at least 2 foods
+    </div>
+    <button
+      [disabled]="s.invalid"
+      class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 mx-auto"
+      type="submit"
+    >
+      Save
+    </button>
+  </form>
+</div>

@@ -1,0 +1,124 @@
+<div class="mt-36">
+  <form
+    class="flex flex-col bg-white shadow-md rounded px-6 w-1/5 h-auto mx-auto pt-4 pb-4 gap-2"
+    #f="ngForm"
+    (ngSubmit)="onSubmit(f)"
+  >
+    <label class="block text-center text-gray-700 text-sm font-bold mb-2"
+      >Add Food</label
+    >
+    <input
+      class="w-1/2 bg-pink-300 placeholder-white text-white rounded border-0 mx-auto"
+      minlength="3"
+      maxlength="50"
+      placeholder="Food Name"
+      autofocus
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="food.name"
+      required
+    />
+    <div *ngIf="f.submitted && f.controls['name'].errors">
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['name'].errors['required']"
+      >
+        Name is required.
+      </div>
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['name'].errors['minlength']"
+      >
+        Name must be at least 3 characters long.
+      </div>
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['name'].errors['maxlength']"
+      >
+        Name must be at most 50 characters long.
+      </div>
+    </div>
+    <input
+      class="w-1/2 bg-pink-300 placeholder-white text-white rounded border-0 mx-auto"
+      type="number"
+      id="price"
+      name="price"
+      [(ngModel)]="food.price"
+      placeholder="Food price $"
+      required
+      minlength="1"
+      min="0"
+    />
+    <!-- <div
+      *ngIf="
+        f.controls['price'].invalid &&
+        (f.controls['price'].dirty || f.controls['price'].touched)
+      "
+      class="bg-red-700 rounded mx-auto text-white"
+    >
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['price'].errors['required']"
+      >
+        Price is required.
+      </div>
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['price'].errors['min']"
+      >
+        Price must be greater than or equal to 0.
+      </div>
+    </div> -->
+    <textarea
+      class="w-1/2 bg-pink-300 placeholder-white text-white rounded border-0 mx-auto"
+      id="description"
+      name="description"
+      [(ngModel)]="food.description"
+      required
+      placeholder="Food description"
+      minlength="7"
+    ></textarea>
+    <!-- <div
+      *ngIf="
+        f.controls['description'].invalid &&
+        (f.controls['description'].dirty || f.controls['description'].touched)
+      "
+      class="bg-red-700 rounded mx-auto text-white"
+    >
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['description'].errors['required']"
+      >
+        Description is required.
+      </div>
+    </div> -->
+    <select id="category" name="category" [(ngModel)]="food.category" required>
+      <option value="">Select a meal</option>
+      <option [value]="category" *ngFor="let category of categories">
+        {{ category }}
+      </option>
+    </select>
+    <!-- <div
+      *ngIf="
+        f.controls['category'].invalid &&
+        (f.controls['category'].dirty || f.controls['category'].touched)
+      "
+      class="bg-red-700 rounded mx-auto text-white"
+    >
+      <div
+        class="bg-red-700 rounded mx-auto text-white"
+        *ngIf="f.controls['category'].errors['required']"
+      >
+        Category is required.
+      </div>
+    </div> -->
+    <button
+      [disabled]="f.invalid"
+      class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 mx-auto"
+      type="submit"
+    >
+      Add
+    </button>
+  </form>
+</div>

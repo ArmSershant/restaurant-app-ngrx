@@ -1,0 +1,21 @@
+<div class="flex flex-row gap-2 mx-auto">
+  <div *ngFor="let set of sets$ | async">
+    <p class="bg-amber-700 rounded">Total price: {{ foods | sum : "price" }}</p>
+    <h2 class="bg-orange-400 rounded">Name of the Set: {{ set.name }}</h2>
+    <div class="gap-2" *ngFor="let food of foods">
+      <div class="shadow-sm bg-blue-700 rounded mt-1 ml-1 px-3 py-3 mx-auto">
+        <h2>{{ food.name }}</h2>
+        <h2>Food Name: {{ food.name }}</h2>
+        <h2>Food Price: ${{ food.price }}</h2>
+        <button
+          class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-2 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 mx-1 my-1"
+          routerLink="/app-single-set/{{ food.id }}"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >
+          See Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
