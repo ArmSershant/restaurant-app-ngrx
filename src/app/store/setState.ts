@@ -1,5 +1,5 @@
 import { Set } from '../food/set/models/set.model';
 
-export interface setState {
+export interface SetState {
   sets: Set[];
 }

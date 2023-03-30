@@ -1,15 +1,28 @@
-<div class="flex flex-row gap-2 mx-auto">
-  <div *ngFor="let set of sets$ | async">
-    <p class="bg-amber-700 rounded">Total price: {{ foods | sum : "price" }}</p>
+<div class="flex flex-row">
+  <div
+    class="mx-auto"
+    *ngFor="
+      let set of sets
+        | paginate
+          : {
+              id: 'pagination',
+              itemsPerPage: pageSize,
+              currentPage: currentPage,
+              totalItems: totalSets
+            }
+    "
+  >
+    <p class="bg-amber-700 rounded">
+      Total price: ${{ set.food | sum : "price" }}
+    </p>
     <h2 class="bg-orange-400 rounded">Name of the Set: {{ set.name }}</h2>
-    <div class="gap-2" *ngFor="let food of foods">
+    <div class="gap-2" *ngFor="let food of set.food">
       <div class="shadow-sm bg-blue-700 rounded mt-1 ml-1 px-3 py-3 mx-auto">
-        <h2>{{ food.name }}</h2>
         <h2>Food Name: {{ food.name }}</h2>
         <h2>Food Price: ${{ food.price }}</h2>
         <button
           class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-2 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 mx-1 my-1"
-          routerLink="/app-single-set/{{ food.id }}"
+          routerLink="/app-single-food/{{ food.id }}"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
         >
@@ -18,4 +31,19 @@
       </div>
     </div>
   </div>
+</div>
+<div class="flex justify-center my-2">
+  <pagination-controls
+    id="pagination"
+    previousLabel="Prev"
+    nextLabel="Next"
+    [responsive]="true"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page"
+    [directionLinks]="true"
+    (pageChange)="onPageChange($event)"
+    [maxSize]="6"
+  >
+  </pagination-controls>
 </div>

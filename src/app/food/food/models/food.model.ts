@@ -1,6 +1,6 @@
 export class Food {
   constructor(
-    public id: string,
+    public id:  number,
     public name: string,
     public price: number | null,
     public description: string,

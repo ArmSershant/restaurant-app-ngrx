@@ -1,5 +1,6 @@
-import { Food } from '../food/food/models/food.model';
+import { Food } from 'src/app/food/food/models/food.model';
 
-export interface foodState {
+export interface FoodState {
   foods: Food[];
+  food: Food;
 }

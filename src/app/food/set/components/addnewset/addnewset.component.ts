@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Food } from 'src/app/food/food/models/food.model';
 import { NgForm } from '@angular/forms';
-import { Set } from '../../models/set.model';
+import { SetForm } from '../../models/set.model';
 import { Router } from '@angular/router';
-import { addset } from 'src/app/store/setStore/set.actions';
-import { changeChecked } from 'src/app/store/foodStore/food.actions';
-import { getSelectedFoods } from './../../../../store/foodStore/food.selectors';
+import { createSet } from 'src/app/store/setStore/set.actions';
+import { changeChecked, getFood } from 'src/app/store/foodStore/food.actions';
+import {
+  getSelectedFoods,
+  selectFoods,
+} from './../../../../store/foodStore/food.selectors';
+import { IState } from './../../../../store/state';
 @Component({
   selector: 'app-addnewset',
   templateUrl: './addnewset.component.html',
   styleUrls: ['./addnewset.component.css'],
 })
 export class AddnewsetComponent {
-  public foods$ = this.store.select((state) => state.foods);
-  public set: Set = {
-    id: '',
+  public foods$ = this.store.select(selectFoods);
+  public set: SetForm = {
+    id: 0,
     name: '',
-    foods: [],
+    food: [],
   };
   public notEnoughChecked = false;
   public categories: string[] = [
@@ -32,11 +35,11 @@ export class AddnewsetComponent {
   ];
   public isSelected!: Boolean;
   public selectedCategory!: string;
-  constructor(
-    private store: Store<{ foods: Food[] }>,
-    private router: Router
-  ) {}
-  onCheck(id: string) {
+  constructor(private store: Store<IState>, private router: Router) {}
+  ngOnInit() {
+    this.store.dispatch(getFood());
+  }
+  onCheck(id: number) {
     this.store.dispatch(changeChecked({ id }));
   }
   onCategoryChange(category: string) {
@@ -49,13 +52,13 @@ export class AddnewsetComponent {
         this.notEnoughChecked = true;
       } else {
         this.notEnoughChecked = false;
-        let set = new Set(
-          Math.floor(Math.random() * 1001).toString(),
+        let set = new SetForm(
+          Math.floor(Math.random() * 1001),
           form.value.name,
           sets
         );
         form.resetForm();
-        this.store.dispatch(addset({ set }));
+        this.store.dispatch(createSet({ set }));
         this.router.navigate(['/app-showallset']);
       }
     });

@@ -1,0 +1,13 @@
+<div *ngIf="user$ | async as user">
+  <header>
+    <h3>
+      <strong>Profile:</strong>
+      {{ user.username }}
+    </h3>
+  </header>
+  <p>
+    <strong>Email:</strong>
+    {{ user.email }}
+  </p>
+</div>
+<ng-template #loggedOut> Please login. </ng-template>

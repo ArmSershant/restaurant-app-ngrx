@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { addfood } from 'src/app/store/foodStore/food.actions';
+import { createFood } from 'src/app/store/foodStore/food.actions';
 import { Food } from '../../models/food.model';
 
 @Component({
@@ -25,7 +25,7 @@ export class AddnewfoodComponent {
     'dinner',
   ];
   food: Food = {
-    id: '',
+    id: 0,
     name: '',
     price: null,
     description: '',
@@ -34,14 +34,14 @@ export class AddnewfoodComponent {
   };
   onSubmit(form: NgForm) {
     let food = new Food(
-      Math.floor(Math.random() * 1001).toString(),
+      Math.floor(Math.random() * 1001),
       form.value.name,
       form.value.price,
       form.value.description,
       form.value.category,
       false
     );
-    this.store.dispatch(addfood({ food }));
+    this.store.dispatch(createFood({ food }));
     form.resetForm();
     this.router.navigate(['/app-addnewset']);
   }

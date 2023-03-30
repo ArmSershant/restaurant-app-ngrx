@@ -1,6 +1,14 @@
 <nav class="flex bg-green-800 text-white">
   <ul class="flex flex-row gap-2">
     <li>
+      <a
+        [routerLink]="['/app-profile']"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Profile</a
+      >
+    </li>
+    <li>
       <a [routerLink]="['/app-addnewfood']" routerLinkActive="active"
         >Add New Food</a
       >
@@ -19,6 +27,31 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
         >Show All Sets</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="['/app-signin']"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >SignIn</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="['/app-signup']"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >SignUp</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="['/app-signin']"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="logout()"
+        >LogOut</a
       >
     </li>
   </ul>

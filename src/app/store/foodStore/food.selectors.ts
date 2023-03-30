@@ -1,17 +1,17 @@
 import { createSelector } from '@ngrx/store';
 import { Food } from 'src/app/food/food/models/food.model';
-import { foodState } from '../foodState';
+import { FoodState } from '../foodState';
+import { IState } from '../state';
 
-export const selectFeature = (state: foodState) => state.foods;
-export const getFoodsById = createSelector(
+export const selectFeature = (state: IState) => state.foods;
+export const selectFoods = createSelector(
   selectFeature,
-  (state: Food[], props: { id: string }) =>
-    state.filter((el: Food) => el.id === props.id)
+  (state: FoodState) => state.foods
 );
-
-export const getSelectedFoods = createSelector(
+export const selectFood = createSelector(
   selectFeature,
-  (state: Food[]) => {
-    return state.filter((el: Food) => el.ischecked);
-  }
+  (state: FoodState) => state.food
+);
+export const getSelectedFoods = createSelector(selectFeature, (state) =>
+  state.foods.filter((el: Food) => el.ischecked)
 );

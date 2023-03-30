@@ -1,0 +1,8 @@
+<div class="flex gap-2 mx-auto" *ngIf="food$ | async as food">
+  <div class="shadow-sm bg-amber-800 rounded mt-1 ml-1 px-3 py-3 mx-auto">
+    <h2>{{ food.name }}</h2>
+    <h2>${{ food.price }}</h2>
+    <h2>{{ food.description }}</h2>
+    <h2>{{ food.category }}</h2>
+  </div>
+</div>
