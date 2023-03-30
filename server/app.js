@@ -3,7 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const { Food, Set, Set_food, User } = require('./App/util/database');
-// const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
 const app = express();
 const passport = require('passport');
@@ -101,25 +100,6 @@ app.post('/signup', async (req, res, next) => {
     }
   })(req, res, next)
 })
-
-
-// app.post(
-//   "/signin", async (req, res, next) => {
-//     passport.authenticate("signin", {
-//       session: false,
-//     }, async (error, user, info) => {
-//       if (error) return next(error)
-//       if (!user) res.send({ message: info.message })
-//       else {
-//         user.username = req.body.username
-//         let userData = await User.findOne({ username: user.username, include: { all: true } })
-//         const token = jwt.sign({ user: userData }, "SECRET_KEY")
-//         // user = userData
-//         res.send({ userData, token })
-//       }
-//     })(req, res, next)
-//     // AuthController.signin
-// });
 
 app.post('/signin', passport.authenticate('signin', {
   session: false

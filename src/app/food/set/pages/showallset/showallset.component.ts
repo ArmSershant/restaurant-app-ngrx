@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getSet, loadSets } from 'src/app/store/setStore/set.actions';
+import { loadSets } from 'src/app/store/setStore/set.actions';
 import { selectSets } from 'src/app/store/setStore/set.selectors';
 import { Set } from '../../models/set.model';
 import { IState } from './../../../../store/state';
